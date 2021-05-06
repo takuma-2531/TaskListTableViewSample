@@ -27,7 +27,7 @@
                                 </constraints>
                                 <state key="normal" title="追加"/>
                                 <connections>
-                                    <action selector="addTaskButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="0xS-9c-Uok"/>
+                                    <action selector="tapAddTaskButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="RrS-Xd-dj5"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p0Q-bi-npZ">

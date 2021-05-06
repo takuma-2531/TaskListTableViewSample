@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <state key="normal" image="circle" catalog="system"/>
                         <connections>
-                            <action selector="checkButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="B1r-Ut-GNa"/>
+                            <action selector="tapCheckButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pxC-6t-0BM"/>
                         </connections>
                     </button>
                 </subviews>
