@@ -32,7 +32,7 @@ class ListTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func checkButtonTapped(_ sender: UIButton) {
+    @IBAction func tapCheckButton(_ sender: UIButton) {
         
 //        isChecked.toggle()
 //

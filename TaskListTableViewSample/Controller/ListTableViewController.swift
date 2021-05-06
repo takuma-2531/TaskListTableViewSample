@@ -22,7 +22,7 @@ class ListTableViewController: UIViewController {
         
     }
     
-    @IBAction func addTaskButtonTapped(_ sender: UIButton) {
+    @IBAction func tapAddTaskButton(_ sender: UIButton) {
         let addTask = CheckListItem.init(itemName: addTaskTextField.text!, isChecked: false)
         itemList.append(addTask)
         tableView.reloadData()
