@@ -15,13 +15,52 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fgk-Ic-Y8z">
+                                <rect key="frame" x="0.0" y="119" width="414" height="743"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Khg-hv-k7f">
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Khg-hv-k7f" id="Xjc-d8-qzb">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bx0-BP-vrc">
+                                <rect key="frame" x="363" y="61" width="31" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="31" id="c2G-QX-5yf"/>
+                                </constraints>
+                                <state key="normal" title="追加"/>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p0Q-bi-npZ">
+                                <rect key="frame" x="20" y="59" width="335" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Bx0-BP-vrc" firstAttribute="centerY" secondItem="p0Q-bi-npZ" secondAttribute="centerY" id="84V-7I-T1x"/>
+                            <constraint firstItem="Fgk-Ic-Y8z" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="FS9-lc-UFU"/>
+                            <constraint firstItem="Fgk-Ic-Y8z" firstAttribute="top" secondItem="p0Q-bi-npZ" secondAttribute="bottom" constant="26" id="KQk-1t-1Ja"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Bx0-BP-vrc" secondAttribute="trailing" constant="20" id="PP0-bB-Dnf"/>
+                            <constraint firstItem="Fgk-Ic-Y8z" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="UAp-rQ-K9k"/>
+                            <constraint firstItem="p0Q-bi-npZ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="15" id="bZ0-Qy-aj3"/>
+                            <constraint firstItem="Fgk-Ic-Y8z" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="nbs-zd-e3r"/>
+                            <constraint firstItem="p0Q-bi-npZ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="vdE-aM-Ill"/>
+                            <constraint firstItem="Bx0-BP-vrc" firstAttribute="leading" secondItem="p0Q-bi-npZ" secondAttribute="trailing" constant="8" id="zFm-jk-Vfs"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="139"/>
+            <point key="canvasLocation" x="137.68115942028987" y="138.61607142857142"/>
         </scene>
     </scenes>
     <resources>
