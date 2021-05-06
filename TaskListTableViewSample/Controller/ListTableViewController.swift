@@ -25,6 +25,7 @@ class ListTableViewController: UIViewController {
     @IBAction func tapAddTaskButton(_ sender: UIButton) {
         let addTask = CheckListItem.init(itemName: addTaskTextField.text!, isChecked: false)
         itemList.append(addTask)
+        addTaskTextField.text = ""
         tableView.reloadData()
     }
     
@@ -48,5 +49,32 @@ extension ListTableViewController: UITableViewDataSource {
 }
 
 extension ListTableViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let downSectionAction = UIContextualAction(style: .normal, title: "down") { ctxAction, view, completionHandler in
+            // なんだこれ
+            completionHandler(true)
+        }
+        
+        let downSectionImage = UIImage(systemName: "arrow.down.square")?.withTintColor(UIColor.white, renderingMode: .alwaysTemplate)
+        downSectionAction.image = downSectionImage
+        downSectionAction.backgroundColor = UIColor.blue
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "delete") { ctxAction, view, completionHandler in
+            self.itemList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        
+        let deleteImage = UIImage(systemName: "trash.fill")?.withTintColor(UIColor.white, renderingMode: .alwaysTemplate)
+        deleteAction.image = deleteImage
+        deleteAction.backgroundColor = UIColor.red
+        
+        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction, downSectionAction])
+        // デフォルトでtrue
+        swipeAction.performsFirstActionWithFullSwipe = false
+        
+        return swipeAction
+    }
     
 }
