@@ -11,6 +11,7 @@ class ListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var taskLabel: UILabel!
+    private var isChecked = false
     
     static var identifier: String {
         String(describing: self)
@@ -32,6 +33,14 @@ class ListTableViewCell: UITableViewCell {
     }
     
     @IBAction func checkButtonTapped(_ sender: UIButton) {
+        
+        isChecked.toggle()
+        
+        let image = isChecked ? UIImage(systemName: "checkmark.circle") : UIImage(systemName: "circle")
+        let state = UIControl.State.normal
+        
+        sender.setImage(image, for: state)
+        
     }
     
     
