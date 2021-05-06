@@ -15,6 +15,7 @@
 		260900D52643AD3900327329 /* ListTableView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 260900D42643AD3900327329 /* ListTableView.storyboard */; };
 		260900D82643B3E000327329 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260900D62643B3E000327329 /* ListTableViewCell.swift */; };
 		260900D92643B3E000327329 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260900D72643B3E000327329 /* ListTableViewCell.xib */; };
+		2691C0642643C62700631AEC /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2691C0632643C62700631AEC /* Items.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		260900D42643AD3900327329 /* ListTableView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ListTableView.storyboard; sourceTree = "<group>"; };
 		260900D62643B3E000327329 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		260900D72643B3E000327329 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
+		2691C0632643C62700631AEC /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,15 +64,40 @@
 			children = (
 				260900C02643AC3800327329 /* AppDelegate.swift */,
 				260900C22643AC3800327329 /* SceneDelegate.swift */,
-				260900C42643AC3800327329 /* ListTableViewController.swift */,
-				260900D42643AD3900327329 /* ListTableView.storyboard */,
-				260900D62643B3E000327329 /* ListTableViewCell.swift */,
-				260900D72643B3E000327329 /* ListTableViewCell.xib */,
+				2691C0652643D39B00631AEC /* Model */,
+				2691C0662643D3A300631AEC /* View */,
+				2691C0672643D3A900631AEC /* Controller */,
 				260900C92643AC3900327329 /* Assets.xcassets */,
 				260900CB2643AC3900327329 /* LaunchScreen.storyboard */,
 				260900CE2643AC3900327329 /* Info.plist */,
 			);
 			path = TaskListTableViewSample;
+			sourceTree = "<group>";
+		};
+		2691C0652643D39B00631AEC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2691C0632643C62700631AEC /* Items.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2691C0662643D3A300631AEC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				260900D42643AD3900327329 /* ListTableView.storyboard */,
+				260900D72643B3E000327329 /* ListTableViewCell.xib */,
+				260900D62643B3E000327329 /* ListTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2691C0672643D3A900631AEC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				260900C42643AC3800327329 /* ListTableViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				260900C52643AC3800327329 /* ListTableViewController.swift in Sources */,
+				2691C0642643C62700631AEC /* Items.swift in Sources */,
 				260900D82643B3E000327329 /* ListTableViewCell.swift in Sources */,
 				260900C12643AC3800327329 /* AppDelegate.swift in Sources */,
 				260900C32643AC3800327329 /* SceneDelegate.swift in Sources */,
