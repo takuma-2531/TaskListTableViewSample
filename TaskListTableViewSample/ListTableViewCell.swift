@@ -9,6 +9,9 @@ import UIKit
 
 class ListTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var checkButton: UIButton!
+    @IBOutlet weak var taskLabel: UILabel!
+    
     static var identifier: String {
         String(describing: self)
     }
@@ -27,5 +30,9 @@ class ListTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    @IBAction func checkButtonTapped(_ sender: UIButton) {
+    }
+    
     
 }
