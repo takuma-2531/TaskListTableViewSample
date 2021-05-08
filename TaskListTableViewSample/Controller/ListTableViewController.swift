@@ -18,7 +18,10 @@ class ListTableViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
         tableView.register(ListTableViewCell.nib, forCellReuseIdentifier: ListTableViewCell.identifier)
+        tableView.dragInteractionEnabled = true
         
     }
     
@@ -50,10 +53,11 @@ extension ListTableViewController: UITableViewDataSource {
 
 extension ListTableViewController: UITableViewDelegate {
     
+    // スワイプで種々Actionさせる
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let downSectionAction = UIContextualAction(style: .normal, title: "down") { ctxAction, view, completionHandler in
-            // なんだこれ
+            // ボタンを押した後にスワイプ状態を解除する
             completionHandler(true)
         }
         
@@ -76,5 +80,24 @@ extension ListTableViewController: UITableViewDelegate {
         
         return swipeAction
     }
+    
+}
+
+// ドラッグ＆ドロップを実装しようとしている
+// モデルから変更しなければならなそうな雰囲気している
+extension ListTableViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return []
+    }
+    
+    
+    
+}
+
+extension ListTableViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        
+    }
+    
     
 }

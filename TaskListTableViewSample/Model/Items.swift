@@ -5,7 +5,7 @@
 //  Created by 小川卓馬 on 2021/05/06.
 //
 
-import Foundation
+import UIKit
 
 class CheckListItem {
     var itemName: String
