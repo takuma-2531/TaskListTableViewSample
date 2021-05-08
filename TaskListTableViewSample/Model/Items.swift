@@ -21,7 +21,7 @@ struct CheckListItem {
 
 extension CheckListItem {
     func dragItem() -> UIDragItem {
-//        let taskName = itemName
+        // isCheckedも触らないとあかんよな
         let itemProvider = NSItemProvider(object: taskName as NSString)
         return UIDragItem(itemProvider: itemProvider)
     }

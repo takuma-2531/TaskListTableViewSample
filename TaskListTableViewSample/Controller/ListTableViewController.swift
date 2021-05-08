@@ -84,7 +84,7 @@ extension ListTableViewController: UITableViewDelegate {
     
 }
 
-// ドラッグ＆ドロップを実装しようとしている
+// これでドラッグ操作はできるようになる
 extension ListTableViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         return [taskList[indexPath.row].dragItem()]
@@ -92,6 +92,7 @@ extension ListTableViewController: UITableViewDragDelegate {
  
 }
 
+// 多くの処理はドロップの方で記述する感じ
 extension ListTableViewController: UITableViewDropDelegate {
     // 何じゃこりゃ
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
@@ -114,6 +115,8 @@ extension ListTableViewController: UITableViewDropDelegate {
             
             tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
             tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+            // 上2行なしでreloadData()でも同じように動くが、何が問題あるのだろうか？
+//            tableView.reloadData()
         }, completion: nil)
         coordinator.drop(item.dragItem, toRowAt: destinationIndexPath)
     }
