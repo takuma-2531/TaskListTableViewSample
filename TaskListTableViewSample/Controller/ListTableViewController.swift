@@ -107,7 +107,9 @@ extension ListTableViewController: UITableViewDragDelegate {
 
 // 多くの処理はドロップの方で記述する感じ
 extension ListTableViewController: UITableViewDropDelegate {
-    // 何じゃこりゃ
+    // 視覚的なフィードバックと公式ドキュメントには書かれていた
+    // operationの.moveを.copyに変えるとプラスマークが表示され、動作には変化は起こらない（多分）
+    // .forbiddenにすると、ドロップ禁止のようなマークが表示され、実際にドロップすることはできなくなる
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
@@ -134,7 +136,9 @@ extension ListTableViewController: UITableViewDropDelegate {
             // reloadData()しないとtagがおかしくなる
             tableView.reloadData()
         }, completion: nil)
-        // あとで調べる
+        // これなくても正常に動くが、アニメーションが直感的ではなくなる
+        // dropしたものがtoRowAtに落ちていくってイメージ
+        // toRowAtをsourceIndexPathに変えてみると分かりやすい
         coordinator.drop(item.dragItem, toRowAt: destinationIndexPath)
     }
     
