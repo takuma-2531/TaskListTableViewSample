@@ -7,11 +7,16 @@
 
 import UIKit
 
+protocol ListTableViewCellDelegate: AnyObject {
+    // 引数のcellでtagなどを引っ張ってこられる
+    func toggleCheckButton(cell: ListTableViewCell)
+}
+
 class ListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var taskLabel: UILabel!
-//    private var isChecked = false
+    weak var delegate: ListTableViewCellDelegate?
     
     static var identifier: String {
         String(describing: self)
@@ -23,23 +28,15 @@ class ListTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
     @IBAction func tapCheckButton(_ sender: UIButton) {
-        
-//        isChecked.toggle()
-//
-//        let image = isChecked ? UIImage(systemName: "checkmark.circle") : UIImage(systemName: "circle")
-//        let state = UIControl.State.normal
-//
-//        sender.setImage(image, for: state)
+        self.delegate?.toggleCheckButton(cell: self)
         
     }
     

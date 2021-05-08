@@ -9,10 +9,10 @@ import Foundation
 
 enum CheckListItemMock {
     static let one = CheckListItem(itemName: "One", isChecked: false)
-    static let two = CheckListItem(itemName: "Two", isChecked: true)
+    static let two = CheckListItem(itemName: "Two", isChecked: false)
     static let three = CheckListItem(itemName: "Three", isChecked: false)
-    static let four = CheckListItem(itemName: "four", isChecked: false)
-    static let five = CheckListItem(itemName: "five", isChecked: true)
+    static let four = CheckListItem(itemName: "Four", isChecked: false)
+    static let five = CheckListItem(itemName: "Five", isChecked: false)
     
     static let array: [CheckListItem] = [one, two, three, four, five]
 }

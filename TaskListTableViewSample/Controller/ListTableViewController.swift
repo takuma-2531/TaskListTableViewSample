@@ -45,7 +45,15 @@ extension ListTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier, for: indexPath) as! ListTableViewCell
         cell.taskLabel.text = taskList[indexPath.row].taskName
-        cell.checkButton.setImage(UIImage(systemName: "checkmark.circle"), for: UIControl.State.normal)
+        
+        let checkButtonImage = taskList[indexPath.row].isChecked ? UIImage(systemName: "checkmark.circle") : UIImage(systemName: "circle")
+        cell.checkButton.setImage(checkButtonImage, for: UIControl.State.normal)
+        
+        // セルのタグに行番号を入力
+        cell.tag = indexPath.row
+        
+        cell.delegate = self
+        
         return cell
     }
     
@@ -87,7 +95,12 @@ extension ListTableViewController: UITableViewDelegate {
 // これでドラッグ操作はできるようになる
 extension ListTableViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        
         return [taskList[indexPath.row].dragItem()]
+        
+        // 配列を返すのは、複数の値をドラッグできるようにするため
+//        return [UIDragItem(itemProvider: NSItemProvider(object: "first" as NSString)), UIDragItem(itemProvider: NSItemProvider(object: "second" as NSString))]
+        
     }
  
 }
@@ -113,13 +126,23 @@ extension ListTableViewController: UITableViewDropDelegate {
             let task = strongSelf.taskList.remove(at: sourceIndexPath.row)
             taskList.insert(task, at: destinationIndexPath.row)
             
-            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
-            tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+//            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+//            tableView.insertRows(at: [destinationIndexPath], with: .automatic)
             // 上2行なしでreloadData()でも同じように動くが、何が問題あるのだろうか？
-//            tableView.reloadData()
+            // 両方実行すると、並び替えの際表示がギクシャクする
+            // reloadData()だけでOK?
+            // reloadData()しないとtagがおかしくなる
+            tableView.reloadData()
         }, completion: nil)
+        // あとで調べる
         coordinator.drop(item.dragItem, toRowAt: destinationIndexPath)
     }
     
-    
+}
+
+extension ListTableViewController: ListTableViewCellDelegate {
+    func toggleCheckButton(cell: ListTableViewCell) {
+        taskList[cell.tag].isChecked.toggle()
+        tableView.reloadData()
+    }
 }
