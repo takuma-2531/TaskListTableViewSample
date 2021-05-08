@@ -11,7 +11,7 @@ class ListTableViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addTaskTextField: UITextField!
-    private var itemList: [CheckListItem] = CheckListItemMock.array
+    private var taskList: [CheckListItem] = CheckListItemMock.array
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class ListTableViewController: UIViewController {
     
     @IBAction func tapAddTaskButton(_ sender: UIButton) {
         let addTask = CheckListItem.init(itemName: addTaskTextField.text!, isChecked: false)
-        itemList.append(addTask)
+        taskList.append(addTask)
         addTaskTextField.text = ""
         tableView.reloadData()
     }
@@ -39,12 +39,12 @@ class ListTableViewController: UIViewController {
 
 extension ListTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemList.count
+        return taskList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier, for: indexPath) as! ListTableViewCell
-        cell.taskLabel.text = itemList[indexPath.row].itemName
+        cell.taskLabel.text = taskList[indexPath.row].taskName
         cell.checkButton.setImage(UIImage(systemName: "checkmark.circle"), for: UIControl.State.normal)
         return cell
     }
@@ -67,7 +67,7 @@ extension ListTableViewController: UITableViewDelegate {
         downSectionAction.backgroundColor = UIColor.blue
         
         let deleteAction = UIContextualAction(style: .destructive, title: "delete") { ctxAction, view, completionHandler in
-            self.itemList.remove(at: indexPath.row)
+            self.taskList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
@@ -87,16 +87,35 @@ extension ListTableViewController: UITableViewDelegate {
 // ドラッグ＆ドロップを実装しようとしている
 extension ListTableViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        return [itemList[indexPath.row].dragItem()]
+        return [taskList[indexPath.row].dragItem()]
     }
-    
-    
-    
+ 
 }
 
 extension ListTableViewController: UITableViewDropDelegate {
+    // 何じゃこりゃ
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+    
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        guard let item = coordinator.items.first,
+              let destinationIndexPath = coordinator.destinationIndexPath,
+              let sourceIndexPath = item.sourceIndexPath else {
+            return
+        }
         
+        // strong weak は勉強しないと
+        tableView.performBatchUpdates({ [weak self] in
+            guard let strongSelf = self else { return }
+            
+            let task = strongSelf.taskList.remove(at: sourceIndexPath.row)
+            taskList.insert(task, at: destinationIndexPath.row)
+            
+            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+            tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+        }, completion: nil)
+        coordinator.drop(item.dragItem, toRowAt: destinationIndexPath)
     }
     
     

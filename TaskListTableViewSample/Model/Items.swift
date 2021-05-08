@@ -9,19 +9,19 @@
 // ModelにUIKitをimportするのはおかしいのか？
 import UIKit
 
-class CheckListItem {
-    var itemName: String
+struct CheckListItem {
+    var taskName: String
     var isChecked: Bool
     
     init(itemName: String, isChecked: Bool) {
-        self.itemName = itemName
+        self.taskName = itemName
         self.isChecked = isChecked
     }
 }
 
 extension CheckListItem {
     func dragItem() -> UIDragItem {
-        let taskName = itemName
+//        let taskName = itemName
         let itemProvider = NSItemProvider(object: taskName as NSString)
         return UIDragItem(itemProvider: itemProvider)
     }
