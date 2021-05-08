@@ -11,7 +11,7 @@ class ListTableViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addTaskTextField: UITextField!
-    private var itemList: [CheckListItem] = []
+    private var itemList: [CheckListItem] = CheckListItemMock.array
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,7 @@ class ListTableViewController: UIViewController {
         tableView.dragDelegate = self
         tableView.dropDelegate = self
         tableView.register(ListTableViewCell.nib, forCellReuseIdentifier: ListTableViewCell.identifier)
+        // これなんだろ
         tableView.dragInteractionEnabled = true
         
     }
@@ -84,10 +85,9 @@ extension ListTableViewController: UITableViewDelegate {
 }
 
 // ドラッグ＆ドロップを実装しようとしている
-// モデルから変更しなければならなそうな雰囲気している
 extension ListTableViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        return []
+        return [itemList[indexPath.row].dragItem()]
     }
     
     
