@@ -36,7 +36,7 @@ class ListTableViewController: UIViewController {
     
 }
 
-
+// MARK: - UITableViewDataSource
 extension ListTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taskList.count
@@ -60,6 +60,7 @@ extension ListTableViewController: UITableViewDataSource {
     
 }
 
+// MARK: - UITableViewDelegate
 extension ListTableViewController: UITableViewDelegate {
     
     // スワイプで種々Actionさせる
@@ -92,6 +93,7 @@ extension ListTableViewController: UITableViewDelegate {
     
 }
 
+// MARK: - UITableViewDragDelegate
 // これでドラッグ操作はできるようになる
 extension ListTableViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -105,6 +107,7 @@ extension ListTableViewController: UITableViewDragDelegate {
  
 }
 
+// MARK: - UITableViewDropDelegate
 // 多くの処理はドロップの方で記述する感じ
 extension ListTableViewController: UITableViewDropDelegate {
     // 視覚的なフィードバックと公式ドキュメントには書かれていた
@@ -128,14 +131,17 @@ extension ListTableViewController: UITableViewDropDelegate {
             let task = strongSelf.taskList.remove(at: sourceIndexPath.row)
             taskList.insert(task, at: destinationIndexPath.row)
             
-//            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
-//            tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+            tableView.insertRows(at: [destinationIndexPath], with: .automatic)
             // 上2行なしでreloadData()でも同じように動くが、何が問題あるのだろうか？
+            // 複数Sectionを使う場合、reloadData()ではエラーとなった
             // 両方実行すると、並び替えの際表示がギクシャクする
             // reloadData()だけでOK?
             // reloadData()しないとtagがおかしくなる
+            // completionを使えば良いんだ。解決（多分）
+        }, completion: {_ in
             tableView.reloadData()
-        }, completion: nil)
+        })
         // これなくても正常に動くが、アニメーションが直感的ではなくなる
         // dropしたものがtoRowAtに落ちていくってイメージ
         // toRowAtをsourceIndexPathに変えてみると分かりやすい
@@ -143,7 +149,7 @@ extension ListTableViewController: UITableViewDropDelegate {
     }
     
 }
-
+// MARK: - ListTableViewCellDelegate
 extension ListTableViewController: ListTableViewCellDelegate {
     func toggleCheckButton(cell: ListTableViewCell) {
         taskList[cell.tag].isChecked.toggle()
