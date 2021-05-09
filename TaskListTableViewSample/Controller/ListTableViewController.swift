@@ -21,7 +21,7 @@ class ListTableViewController: UIViewController {
         tableView.dragDelegate = self
         tableView.dropDelegate = self
         tableView.register(ListTableViewCell.nib, forCellReuseIdentifier: ListTableViewCell.identifier)
-        // これなんだろ
+        // ドラッグ＆ドロップを可能にする
         tableView.dragInteractionEnabled = true
         
     }
