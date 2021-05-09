@@ -51,7 +51,7 @@ extension ListTableViewController: UITableViewDataSource {
         
         // セルのタグに行番号を入力
         cell.tag = indexPath.row
-        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         cell.delegate = self
         
         return cell
@@ -66,25 +66,34 @@ extension ListTableViewController: UITableViewDelegate {
     // スワイプで種々Actionさせる
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let downSectionAction = UIContextualAction(style: .normal, title: "down") { ctxAction, view, completionHandler in
+        let changeCellColorAction = UIContextualAction(style: .normal, title: "color") { action, view, completionHandler in
+            
+            let color = tableView.cellForRow(at: indexPath)?.backgroundColor
+            
+            if color == .yellow {
+                tableView.cellForRow(at: indexPath)?.backgroundColor = .none
+            } else {
+                tableView.cellForRow(at: indexPath)?.backgroundColor = .yellow
+            }
+            
             // ボタンを押した後にスワイプ状態を解除する
             completionHandler(true)
         }
         
-        let downSectionImage = UIImage(systemName: "arrow.down.square")?.withTintColor(UIColor.white, renderingMode: .alwaysTemplate)
-        downSectionAction.image = downSectionImage
-        downSectionAction.backgroundColor = UIColor.blue
+        let changeCellColorImage = UIImage(systemName: "exclamationmark.circle.fill")
+        changeCellColorAction.image = changeCellColorImage
+        changeCellColorAction.backgroundColor = UIColor.systemYellow
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "delete") { ctxAction, view, completionHandler in
+        let deleteAction = UIContextualAction(style: .destructive, title: "delete") { action, view, completionHandler in
             self.taskList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
-        let deleteImage = UIImage(systemName: "trash.fill")?.withTintColor(UIColor.white, renderingMode: .alwaysTemplate)
+        let deleteImage = UIImage(systemName: "trash.fill")
         deleteAction.image = deleteImage
         deleteAction.backgroundColor = UIColor.red
         
-        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction, downSectionAction])
+        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction, changeCellColorAction])
         // デフォルトでtrue
         swipeAction.performsFirstActionWithFullSwipe = false
         
