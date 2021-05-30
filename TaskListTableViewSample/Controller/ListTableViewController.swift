@@ -107,7 +107,16 @@ extension ListTableViewController: UITableViewDelegate {
 extension ListTableViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         
-        return [taskList[indexPath.row].dragItem()]
+//        return [taskList[indexPath.row].dragItem()]
+        
+        // わざわざCheckListItemにdragItem()を書かないで、ここに直書きでも良いのでは？
+        // ModelにUIKitをimportするのってやっぱ変な気がするし。
+        let itemProvider = NSItemProvider(object: taskList[indexPath.row].taskName as NSString)
+        
+        // NSItemProviderはドラッグ&ドロップでテキストフィールドなどにドロップした時に与える文字列情報
+        // 別にこれが空文字であろうが、TableView内でのドラッグ&ドロップは成立する。
+//        let itemProvider = NSItemProvider(object: "first" as NSString)
+        return [UIDragItem(itemProvider: itemProvider)]
         
         // 配列を返すのは、複数の値をドラッグできるようにするため
 //        return [UIDragItem(itemProvider: NSItemProvider(object: "first" as NSString)), UIDragItem(itemProvider: NSItemProvider(object: "second" as NSString))]
